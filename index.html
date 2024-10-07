@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JPY to USD Converter</title>
+    <link rel="icon" href="https://cdn.midjourney.com/1433b0d0-97dc-4310-9115-e1f549dd552e/0_3_384_N.webp" type="image/webp">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .converted-amount {
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            color: #666;
+        }
+
+        input[type=number] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1.1em;
+            box-sizing: border-box;
+        }
+
+        input[type=range] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .conversion-guide {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .conversion-guide p {
+            margin-bottom: 10px;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .slider-increment {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 0.8em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JPY to USD Converter</h1>
+        <p class="converted-amount" id="convertedAmount">Converted Amount in USD: $0</p>
+        <label for="rate">Conversion Rate:</label>
+        <input type="number" id="rate" value="0.0067" min="0" step="0.000001">
+        <label for="inputYen">Amount in Yen:</label>
+        <input type="number" id="inputYen" value="0" min="0">
+        <input type="range" id="yenSlider" min="0" max="70000" value="0" step="1400">
+        <div class="slider-labels">
+            <span>0</span>
+            <span>14k</span>
+            <span>28k</span>
+            <span>42k</span>
+            <span>56k</span>
+            <span>70k</span>
+        </div>
+        <p class="slider-increment">Each increment on the slider is 1400 yen.</p>
+        <div class="conversion-guide">
+            <p>Quick Conversion Guide:</p>
+            <p>$140 Yen = $1 USD</p>
+            <p>$700 Yen = $5 USD</p>
+            <p>$1400 Yen = $10 USD</p>
+            <p>$2800 Yen = $20 USD</p>
+            <p>$7000 Yen = $50 USD</p>
+            <p>$14000 Yen = $100 USD</p>
+            <p>$28300 Yen = $200 USD</p>
+            <p>$71000 Yen = $500 USD</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('rate').addEventListener('change', convert);
+        document.getElementById('inputYen').addEventListener('input', syncSlider);
+        document.getElementById('yenSlider').addEventListener('input', syncInput);
+
+        function syncSlider() {
+            document.getElementById('yenSlider').value = this.value;
+            convert();
+        }
+
+        function syncInput() {
+            document.getElementById('inputYen').value = this.value;
+            convert();
+        }
+
+        function convert() {
+            let rate = parseFloat(document.getElementById('rate').value);
+            let yen = parseFloat(document.getElementById('inputYen').value);
+            let usd = yen * rate;
+            document.getElementById('convertedAmount').innerHTML = 'Converted Amount in USD: $' + usd.toFixed(2);
+        }
+    </script>
+</body>
+</html>
